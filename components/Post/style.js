@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.article`
   box-sizing: border-box;
-  height: 175px;
+  height: 160px;
   padding: 24px;
   border-bottom: solid 1px rgba(0, 0, 0, 0.15);
 `;
