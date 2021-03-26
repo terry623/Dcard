@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PostsContainer from "components/PostsContainer";
 import Post from "components/Post";
-
-const posts = [
-  { title: 123, excerpt: 456 },
-  { title: 123, excerpt: 456 },
-  { title: 123, excerpt: 456 }
-];
+import { getPopularPosts } from "services/api";
 
 const Main = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchPopularPosts() {
+      try {
+        const posts = await getPopularPosts();
+        setPosts(posts);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchPopularPosts();
+  }, []);
+
   return (
     <PostsContainer>
       {posts.map((post) => (

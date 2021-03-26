@@ -1,3 +1,4 @@
+import Head from "next/head";
 import PropTypes from "prop-types";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
@@ -9,12 +10,16 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background-color: ${theme.colors.primary};
+    font-family: PingFangTC, Helvetica, Microsoft JhengHei;
   }
 `;
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>Dcard Reader</title>
+      </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />

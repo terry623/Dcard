@@ -13,7 +13,7 @@ export default (req, res) => {
       res.status(200).json(JSON.stringify(response.data));
     })
     .catch(function (error) {
-      console.log(error);
+      console.log(error.message);
       res.status(500).json({ message: error.message });
     });
 };

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Container, Title, Excerpt } from "./style";
+
 const Post = ({ title, excerpt }) => (
-  <div>
-    <div>{title}</div>
-    <div>{excerpt}</div>
-  </div>
+  <Container>
+    <Title>{title}</Title>
+    <Excerpt>{excerpt}</Excerpt>
+  </Container>
 );
 
 Post.propTypes = {
