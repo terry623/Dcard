@@ -2,6 +2,8 @@
 
 > 瀏覽 Dcard 時下最熱門的文章！
 
+[Live Demo](https://terry-dcard-reader.vercel.app/)
+
 ![image](./public/demo.gif)
 
 ## Getting Started
