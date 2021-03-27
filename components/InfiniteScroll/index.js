@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { Loading } from "./style";
+import Loader from "components/Loader";
 
 const options = {
   root: null,
@@ -10,7 +10,7 @@ const options = {
 };
 
 const InfiniteScroll = ({ children, loadMore }) => {
-  const detectorRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
     const callback = ([entry]) => {
@@ -20,14 +20,16 @@ const InfiniteScroll = ({ children, loadMore }) => {
     };
 
     let observer = new IntersectionObserver(callback, options);
-    observer.observe(detectorRef.current);
+    observer.observe(observerRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
     <div>
       {children}
-      <Loading ref={detectorRef}>Loading...</Loading>
+      <div ref={observerRef}>
+        <Loader />
+      </div>
     </div>
   );
 };
