@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 
 import PostsContainer from "components/PostsContainer";
 import Post from "components/Post";
+import InfiniteScroll from "components/InfiniteScroll";
 import { getPopularPosts } from "services/api";
 
 const Main = () => {
   const [posts, setPosts] = useState([]);
+  const lastPostId = useRef("");
 
-  useEffect(() => {
-    async function fetchPopularPosts() {
-      try {
-        const posts = await getPopularPosts();
-        setPosts(posts);
-      } catch (err) {
-        console.error(err);
-      }
+  async function fetchPopularPosts() {
+    try {
+      const latestPosts = await getPopularPosts({
+        lastPostId: lastPostId.current
+      });
+      lastPostId.current = latestPosts[latestPosts.length - 1].id;
+      setPosts((prevPosts) => {
+        return [...prevPosts, ...latestPosts];
+      });
+    } catch (err) {
+      console.error(err);
     }
-
-    fetchPopularPosts();
-  }, []);
+  }
 
   return (
     <PostsContainer>
-      {posts.map((post) => (
-        <Post key={post.id} title={post.title} excerpt={post.excerpt} />
-      ))}
+      <InfiniteScroll loadMore={fetchPopularPosts}>
+        {posts.map((post) => (
+          <Post key={post.id} title={post.title} excerpt={post.excerpt} />
+        ))}
+      </InfiniteScroll>
     </PostsContainer>
   );
 };

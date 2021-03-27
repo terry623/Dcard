@@ -1,4 +1,7 @@
 import { fetchData } from "./base";
 
-export const getPopularPosts = (params) =>
-  fetchData("/api/posts", "GET", params);
+export const getPopularPosts = ({ lastPostId }) =>
+  fetchData(
+    `/api/posts${lastPostId ? `?lastPostId=${lastPostId}` : ""}`,
+    "GET"
+  );

@@ -2,13 +2,12 @@ const axios = require("axios");
 
 const API_BASE_URL = "https://www.dcard.tw/v2";
 
-export default (req, res) => {
+export default ({ query: { lastPostId } }, res) => {
   axios
-    .get(`${API_BASE_URL}/posts`, {
-      params: {
-        popular: true
-      }
-    })
+    .get(
+      `${API_BASE_URL}/posts?popular=true&` +
+        (lastPostId ? `before=${lastPostId}` : "")
+    )
     .then(function (response) {
       res.status(200).json(JSON.stringify(response.data));
     })
